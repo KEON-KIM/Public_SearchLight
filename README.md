@@ -3,7 +3,7 @@
 
 
 ## 1. 구조 
-
+![KakaoTalk_20220926_235800900](https://user-images.githubusercontent.com/37167860/192311875-32f99b66-39ab-403c-a9d6-f2da643c1b23.png)
 SingleTone, 각 매니저들은 모두 인스턴스화 한다.
 
 ### 1) BackEnd (using BACKEND SDK)
@@ -98,6 +98,7 @@ SingleTone, 각 매니저들은 모두 인스턴스화 한다.
 > ( 서버 - 클라이언트 : string[] -> byte[] // 클라이언트 - 서버 byte[] -> string[] ) 
 
 ### 3) In Game 
+#### MANAGER
 #### (1) WorldManager
 > 사용자의 업데이트 정보를 API를 통해 서버로 송신하거나, 수신된 메세지를 통해 인게임 정보를 수시로 업데이트하는 매니저.
 
@@ -110,15 +111,13 @@ SingleTone, 각 매니저들은 모두 인스턴스화 한다.
 > HOST가 아닌 클라이언트는 HOST에게 재가공 되는 메시지들을 OnReceive()를 통해 송신받아 ProcessPlayerData()를 통해 화면을 최신화한다.
 
 #### (2) InGameUIManager
- 게임에 남은 유저 수 및 카운트 다운, 자신 캐릭터의 HUD UI를 최신화하는 매니저. 또한, 서버와 연결이 끊긴 사용자가 있을 경우 Reconnection UI를 표시한다.
-
+ 게임에 남은 유저 수 및 카운트 다운을 표시하고 서버와 연결이 끊긴 사용자가 있을 경우 Reconnection UI를 표시한다. 캔버스에 존재하는 HUD UI오브젝트들과 PlayerHUD 스크립트를 연결시켜주는 역할을 수행하며 HPBar가 스크린 좌표계에서 Player의 3D 좌표를 추적할 수 있도록 연결시켜주는 초기화 작업을 수행한다.
+ 
 #### 실행 주기
 > InGameManager와 동일하게 InGame Scene으로 전환 되면서 실행되고, 인게임이 종료됨과 동시에 종료된다.
 
 #### 동작 방식
 > InGameManager에 의해 호출되며, 게임의 시작과 동시에 SetStartCount()로 게임의 시작을 알린다. 게임 종료 메시지를 수신할 경우 SetGameResult()를 통해 게임의 결과 창을 표시하고 Match Scene으로 화면을 전환한다.
-
-
 
 #### (3) InputManager
  사용자의 조이스틱 정보를 서버에 전송시키기 위한 매니저이다.
@@ -129,12 +128,66 @@ SingleTone, 각 매니저들은 모두 인스턴스화 한다.
 #### 동작 방식
 > GameManager의 Ingame()이벤트를 호출하는 GameManager의 InGameUpdate 코루틴에 의해 매 프레임 호출된다. HOST일 경우 인풋 입력이 있는 순간마다 LocalQue에 메시지를 저장하고, 비 HOST일 경우 서버에게 SendDataToInGame()를 통해 KeyMessage를 송신한다.
 
+#### (4) PoolingManager
+ 해당 매니저의 인스턴스 호출자로부터 pool id를 전달받아 해당 id에 해당하는 ObjectPool을 반환해주거나 새로 생성 혹은 삭제를 수행한다.
+> + ObjectPool
+>> Generic 클래스로 구현되어 다양한 타입에 대응할 수 있는 ObjectPool로, 사용자는PoolingManager를 통해  pool id를 부여받아 해당 id에 해당하는 ObjectPool을 사용할 수 있다.
+>
+> + PoolingParticle
+>> ObjectPooling이 필요한 파티클에 부착되는 컴포넌트로, 해당 파티클의 재생이 종료되었을 때 ObjectPool에 return되는 기능을 수행한다.
 
+#### 실행 주기
+> InGameManager와 동일하게 InGame Scene으로 전환 되면서 실행되고, 인게임이 종료됨과 동시에 종료된다.
+
+#### 동작 방식
+> 
+
+#### (5) SoundManager
+  Reload, Fire, ItemGet, Dead, Hit등의 인게임 효과음에 대해 해당 매니저 인스턴스를 통해 원하는 위치에서 효과음을 재생할 수 있도록 PlayerSoundAtPoint 함수를 제공한다.
+#### 실행 주기
+#### 동작 방식
+</br>
+#### INTERFACE
+#### (1) IDamageable
+> 플레이어 외의 오브젝트에 데미지를 가하는 상황을 상정하여 피격 처리를 인터페이스화 시켰으며, TakeHit, TakeDamage, PlayerHitParticle 등의 메서드를 제공하고 해당 인터페이스를 상속받은 오브젝트는 Damageable Object로써 취급된다.
+
+#### OBJECT
+
+#### (1) Player
+> hp(체력), shield(방어구), moveSpeed(이동속도), sightDistance(시야 거리), sightAngle(시야각)등의 필드를 관리하며 해당 정보가 요구되는 PlayerController, GunController, Detect 스크립트를 초기화 하는 역할을 수행하고 IDamageable로부터 실체화한 피격 처리 기능을 수행하며 실시간으로 MainCamera 위치를 갱신한다.
+>
+> + PlayerController
+>> 플레이어의 이동, 회전 등의 Transform 관련 기능을 수행한다.
+>
+> + Detect
+>>플레이어의 시야 기능을 수행하며 SphereCollider를 통해 OnTriggerStay 되고 있는 특정 거리 내의 플레이어를 탐색하여 해당 플레이어의 정보를 각각의 플레이어 오브젝트 이름으로 구분하기 위해 detectedPlayers 딕셔너리에 추가하고 해당 플레이어가 OnTriggerExit 될 경우 딕셔너리에서 제외하며, detectedPlayers에 존재하는 플레이어가 자신의 시야각 내에 위치할 경우 해당 플레이어 오브젝트의 메시 렌더러를 활성화시키고 딕셔너리에서 제외되거나 시야각에서 벗어났을 경우 메시 렌더러를 비활성화시킨다.
+>
+> + PlayerHUD
+>> Player 스크립트의 각종 상태 변화 (OnHPChange, OnShieldChange, OnPlayerKillCountUpdate, OnAlivePlayerCountUpdate) 액션에 대해 각각의 업데이트 함수를 바인드하여 HUD 텍스트 및 이미지의 업데이트를 수행한다.
+>
+> + HealthBar
+>>Player의 체력 및 쉴드량 변화 액션(OnHPChange, OnShieldChange)에 대해 HP bar 및 Shield bar 갱신 함수를 바인드하여 HP bar를 관리한다.
+
+#### (2) Gun
+> GunController로부터 하달된 Fire 명령을 수행하며, Fire 함수 내부에서는 PoolingManager를 통해 할당받은 ObjectPool의 GetObject 함수에 의한 Projectile 오브젝트의 ObjectPooling이 수행된다.
+>
+> + GunController
+>> shotDistance (발사 거리), maxRecoilRadius (총기 반동 범위 상한), mainAmmoInPouch (보유 주무기 탄약), subAmmoInPouch(보유 보조무기 탄약) 등의 필드를 관리하며 보유중인 주무기를 mainGun으로, 보조무기를 subGun으로 관리하여 이를 통해 새로운 Gun 장비, Gun 교체, Reload, Fire 등의 기능을 수행한다.
+>
+> + Projectile
+>> Gun에서 발사되는 투사체로써의 역할을 수행하며 Raycast를 통한 충돌처리를 통해 대상이 Damageable Object인 경우에만 피격 이벤트를 발생시킨다.
+
+
+#### (3) Item
+>HealPack, ShieldPack, MainAmmo, SubAmmo, MainWeapon(레벨0~3), SubWeapon(레벨1~3) 중에하나를 해당 아이템의 Category 로써 가질 수 있으며 아이템 획득자에게 현재 아이템 Category 에 따른 효과 혹은 새로운 무기를 부여한다.
+>
+> + ItemSpawn
+>>Item을 스폰시키는 기능을 수행하며, 아이템 리스폰 쿨타임 (spawnCooltime), 스폰 시킬 아이템 (spawnType) 등의 필드를 가지고, 특정 아이템 고정 스폰 혹은 랜덤 스폰을 수행한다.
 
 
 ## 2. 동작
 ## Search Light
-![PvPTank](https://user-images.githubusercontent.com/37167860/163588293-42e6ebea-9307-4d20-807b-16b6f895b0d1.png)
+https://user-images.githubusercontent.com/37167860/192309874-8bc69f76-daba-435f-9cf3-cfb279351e82.png
 
 ### 1) Login Scene
 > ServerManager와 GameManager, 그리고 로그인에 사용될 UI를 관리할 LoginUIManager를 인스턴스화 하고, 유저의 접속을 기다린다. 유저가 로그인 또는 회원가입을 통해 서버접속을 원할 때 SeverManager는 해당 접근을 확인하고 승인 및 거절한다. ServerManager를 통해 Server의 승인이 되었을 경우 해당 유저에게 Login 토큰을 발행하여 일정 시간 자유롭게 로그인할 수 있는 권한을 주며, GameManager는 다음 Lobby Scene으로 전환한다.
