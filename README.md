@@ -170,35 +170,35 @@
 #### OBJECT
 ![KakaoTalk_20220926_235800900](https://user-images.githubusercontent.com/37167860/192311875-32f99b66-39ab-403c-a9d6-f2da643c1b23.png)
 #### (1) Player
-> hp(체력), shield(방어구), moveSpeed(이동속도), sightDistance(시야 거리), sightAngle(시야각)등의 필드를 관리하며 해당 정보가 요구되는 PlayerController, GunController, Detect 스크립트를 초기화 하는 역할을 수행하고 IDamageable로부터 실체화한 피격 처리 기능을 수행하며 실시간으로 MainCamera 위치를 갱신한다.
+ hp(체력), shield(방어구), moveSpeed(이동속도), sightDistance(시야 거리), sightAngle(시야각)등의 필드를 관리하며 해당 정보가 요구되는 PlayerController, GunController, Detect 스크립트를 초기화 하는 역할을 수행하고 IDamageable로부터 실체화한 피격 처리 기능을 수행하며 실시간으로 MainCamera 위치를 갱신한다.
 >
 > + PlayerController
->> 플레이어의 이동, 회전 등의 Transform 관련 기능을 수행한다.
+>   플레이어의 이동, 회전 등의 Transform 관련 기능을 수행한다.
 >
 > + Detect
->>플레이어의 시야 기능을 수행하며 SphereCollider를 통해 OnTriggerStay 되고 있는 특정 거리 내의 플레이어를 탐색하여 해당 플레이어의 정보를 각각의 플레이어 오브젝트 이름으로 구분하기 위해 detectedPlayers 딕셔너리에 추가하고 해당 플레이어가 OnTriggerExit 될 경우 딕셔너리에서 제외하며, detectedPlayers에 존재하는 플레이어가 자신의 시야각 내에 위치할 경우 해당 플레이어 오브젝트의 메시 렌더러를 활성화시키고 딕셔너리에서 제외되거나 시야각에서 벗어났을 경우 메시 렌더러를 비활성화시킨다.
+>   플레이어의 시야 기능을 수행하며 SphereCollider를 통해 OnTriggerStay 되고 있는 특정 거리 내의 플레이어를 탐색하여 해당 플레이어의 정보를 각각의 플레이어 오브젝트 이름으로 구분하기 위해 detectedPlayers 딕셔너리에 추가하고 해당 플레이어가 OnTriggerExit 될 경우 딕셔너리에서 제외하며, detectedPlayers에 존재하는 플레이어가 자신의 시야각 내에 위치할 경우 해당 플레이어 오브젝트의 메시 렌더러를 활성화시키고 딕셔너리에서 제외되거나 시야각에서 벗어났을 경우 메시 렌더러를 비활성화시킨다.
 >
 > + PlayerHUD
->> Player 스크립트의 각종 상태 변화 (OnHPChange, OnShieldChange, OnPlayerKillCountUpdate, OnAlivePlayerCountUpdate) 액션에 대해 각각의 업데이트 함수를 바인드하여 HUD 텍스트 및 이미지의 업데이트를 수행한다.
+>   Player 스크립트의 각종 상태 변화 (OnHPChange, OnShieldChange, OnPlayerKillCountUpdate, OnAlivePlayerCountUpdate) 액션에 대해 각각의 업데이트 함수를 바인드하여 HUD 텍스트 및 이미지의 업데이트를 수행한다.
 >
 > + HealthBar
->>Player의 체력 및 쉴드량 변화 액션(OnHPChange, OnShieldChange)에 대해 HP bar 및 Shield bar 갱신 함수를 바인드하여 HP bar를 관리한다.
+>   Player의 체력 및 쉴드량 변화 액션(OnHPChange, OnShieldChange)에 대해 HP bar 및 Shield bar 갱신 함수를 바인드하여 HP bar를 관리한다.
 
 #### (2) Gun
-> GunController로부터 하달된 Fire 명령을 수행하며, Fire 함수 내부에서는 PoolingManager를 통해 할당받은 ObjectPool의 GetObject 함수에 의한 Projectile 오브젝트의 ObjectPooling이 수행된다.
+ GunController로부터 하달된 Fire 명령을 수행하며, Fire 함수 내부에서는 PoolingManager를 통해 할당받은 ObjectPool의 GetObject 함수에 의한 Projectile 오브젝트의 ObjectPooling이 수행된다.
 >
 > + GunController
->> shotDistance (발사 거리), maxRecoilRadius (총기 반동 범위 상한), mainAmmoInPouch (보유 주무기 탄약), subAmmoInPouch(보유 보조무기 탄약) 등의 필드를 관리하며 보유중인 주무기를 mainGun으로, 보조무기를 subGun으로 관리하여 이를 통해 새로운 Gun 장비, Gun 교체, Reload, Fire 등의 기능을 수행한다.
+>   shotDistance (발사 거리), maxRecoilRadius (총기 반동 범위 상한), mainAmmoInPouch (보유 주무기 탄약), subAmmoInPouch(보유 보조무기 탄약) 등의 필드를 관리하며 보유중인 주무기를 mainGun으로, 보조무기를 subGun으로 관리하여 이를 통해 새로운 Gun 장비, Gun 교체, Reload, Fire 등의 기능을 수행한다.
 >
 > + Projectile
 >> Gun에서 발사되는 투사체로써의 역할을 수행하며 Raycast를 통한 충돌처리를 통해 대상이 Damageable Object인 경우에만 피격 이벤트를 발생시킨다.
 
 
 #### (3) Item
->HealPack, ShieldPack, MainAmmo, SubAmmo, MainWeapon(레벨0~3), SubWeapon(레벨1~3) 중에하나를 해당 아이템의 Category 로써 가질 수 있으며 아이템 획득자에게 현재 아이템 Category 에 따른 효과 혹은 새로운 무기를 부여한다.
+HealPack, ShieldPack, MainAmmo, SubAmmo, MainWeapon(레벨0~3), SubWeapon(레벨1~3) 중에하나를 해당 아이템의 Category 로써 가질 수 있으며 아이템 획득자에게 현재 아이템 Category 에 따른 효과 혹은 새로운 무기를 부여한다.
 >
 > + ItemSpawn
->>Item을 스폰시키는 기능을 수행하며, 아이템 리스폰 쿨타임 (spawnCooltime), 스폰 시킬 아이템 (spawnType) 등의 필드를 가지고, 특정 아이템 고정 스폰 혹은 랜덤 스폰을 수행한다.
+>   Item을 스폰시키는 기능을 수행하며, 아이템 리스폰 쿨타임 (spawnCooltime), 스폰 시킬 아이템 (spawnType) 등의 필드를 가지고, 특정 아이템 고정 스폰 혹은 랜덤 스폰을 수행한다.
 
 
 ## 2. 동작
