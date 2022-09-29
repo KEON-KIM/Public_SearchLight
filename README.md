@@ -90,7 +90,9 @@
 
 #### (3) DataParser
 서버에 보내거나 받은 메세지를 읽기 위해 위해 메세지를 인코딩/ 디코딩 작업을 한다. 
-> ( 서버 - 클라이언트 : string[] -> byte[] // 클라이언트 - 서버 byte[] -> string[] ) <br><br><br>
+> ( 서버 - 클라이언트 : string[] -> byte[] // 클라이언트 - 서버 byte[] -> string[] ) 
+<br><br><br>
+
 
 ### 3) In Game 
 #### MANAGER
