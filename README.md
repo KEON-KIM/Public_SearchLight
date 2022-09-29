@@ -3,6 +3,7 @@
 
 ## 1. 구조 
 <img width="960" alt="제목 없음" src="https://user-images.githubusercontent.com/37167860/192972452-84fd3f39-6c38-4024-94c8-53f49d53a4b4.png">
+
 ![KakaoTalk_20220926_235800900](https://user-images.githubusercontent.com/37167860/192311875-32f99b66-39ab-403c-a9d6-f2da643c1b23.png)
 
 ### 1) BackEnd (using BACKEND SDK)
