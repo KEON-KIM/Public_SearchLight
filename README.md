@@ -3,9 +3,8 @@
 
 ## 1. 구조 
 <img width="960" alt="제목 없음" src="https://user-images.githubusercontent.com/37167860/192972452-84fd3f39-6c38-4024-94c8-53f49d53a4b4.png">
-<br>
-### 1) BackEnd (using BACKEND SDK)
 
+### 1) BackEnd (using BACKEND SDK)
 #### (1) ServerManager
 서버와 클라이언트간 로그인 접속 및 회원가입을 위한 서버 **API**로 InputField에 입력 된 ID/PW를 통해 서버에게 로그인 / 회원가입 요청을 진행한다. 
 
