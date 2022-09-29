@@ -1,5 +1,4 @@
-# PvPTank
-
+# SearchLight
 
 
 ## 1. 구조 
@@ -187,7 +186,7 @@ SingleTone, 각 매니저들은 모두 인스턴스화 한다.
 
 ## 2. 동작
 ## Search Light
-https://user-images.githubusercontent.com/37167860/192309874-8bc69f76-daba-435f-9cf3-cfb279351e82.png
+
 
 ### 1) Login Scene
 > ServerManager와 GameManager, 그리고 로그인에 사용될 UI를 관리할 LoginUIManager를 인스턴스화 하고, 유저의 접속을 기다린다. 유저가 로그인 또는 회원가입을 통해 서버접속을 원할 때 SeverManager는 해당 접근을 확인하고 승인 및 거절한다. ServerManager를 통해 Server의 승인이 되었을 경우 해당 유저에게 Login 토큰을 발행하여 일정 시간 자유롭게 로그인할 수 있는 권한을 주며, GameManager는 다음 Lobby Scene으로 전환한다.
