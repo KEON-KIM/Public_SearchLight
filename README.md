@@ -14,13 +14,12 @@
 
 
 #### 동작방식
-> Login 버튼 클릭시 사용자의 ID와 PW가 서버에 전달되어 로그인 요청이 이루어지고, 로그인이 활성화 되었을 경우 **토큰**을 반환하여 어플리케이션이 종료되더라도 일정 시간 동안 재로그인 없이 로그인 활성화가 가능하다. 회원 가입의 경우도 Sign Up 버튼 클릭 시 사용자의 ID와 PW 그리고 닉네임이 서버에 전달되어 회원 가입 요청이 이루어지며 자동으로 로그인 요청이 이루어진다. 
+> Login 버튼 클릭시 사용자의 ID와 PW가 서버에 전달되어 로그인 요청이 이루어지고, 로그인이 활성화 되었을 경우 **토큰**을 반환하여 어플리케이션이 종료되더라도 일정 시간 동안 재로그인 없이 로그인 활성화가 가능하다. 회원 가입의 경우도 Sign Up 버튼 클릭 시 사용자의 ID와 PW 그리고 닉네임이 서버에 전달되어 회원 가입 요청이 이루어지며 자동으로 로그인 요청이 이루어진다. <br/>
 
-<br/>
 #### (2) ServerMatchManager
 
 #### Partial – ServerMatchManager
-> 매칭 서버와 연결과 매칭 요청을 위한 매니저, MatchMakingHandler에 의해 매칭 서버와 연결을 진행하고 서버에 접속해 있는 사용자들에게 매칭 요청을 진행한다. 만약, 오류가 발생할 경우 Exception Handler에 의해 Error Message 표출을 각 Scene의 UIManager에게 요청한다.
+> 매칭 서버와 연결과 매칭 요청을 위한 매니저, MatchMakingHandler에 의해 매칭 서버와 연결을 진행하고 서버에 접속해 있는 사용자들에게 매칭 요청을 진행한다. 만약, 오류가 발생할 경우 Exception Handler에 의해 Error Message 표출을 각 Scene의 UIManager에게 요청한다.<br/>
 
 #### Partial - ServerInGameManager
 > 인게임 서버와의 연결과 게임에서의 메시지 송수신을 위한 매니저, 같은 인게임 서버에 접속된 사용자가 송신하는 메시지를 BackEnd.Match.OnMatchRelay로 수신받아 클라이언트의 InGameManager에서 처리하도록 한다. 
@@ -31,7 +30,7 @@
 #### 동작방식    
 
 >Login 버튼클릭 이후에 본격적으로 실행된다. Matching 버튼 클릭 시 사용자는 매칭 서버와 접속을 요청하게 된다. 접속이 정상 처리 될 경우, 매칭 서버는 만들어진 매칭 룸끼리 매칭을 이루어준다. 매칭이 정상 처리될 경우 매칭서버와의 연결을 종료하며, Ingame Scene으로 전환되고 유저들이 보내는 메세지를 받아 처리한다. 만약, 게임이 종료되어 종료 요청이 들어오면 게임 결과 창을 UI에 나타내며 동시에 인게임 서버의 접속을 종료 한다.
-<br/>
+
 ### 2) In Application
 #### (1) GameManager
 > 현재 진행중인 게임의 상태를 저장하고, 핸들러를 통해 Scene을 전환하고 게임의 정보를 변경하는 매니저.
@@ -41,7 +40,7 @@
 
 #### 동작방식
 > 시작과 동시에 각 Scene에서 사용될 EventHandler들을 초기화하며, Scene전환 함수가 호출 되면 Scene을 전환하고 해당 Scene에 필요한 GameManager의 State 정보와 사용될 EventHandler들을 변경한다.
-<br/>
+
 #### (2) Protocol
 유저간 서버를 통해 주고 받는 메세지의 정보를 정의한다.
 
@@ -124,6 +123,16 @@
 
 #### 동작 방식
 > GameManager의 Ingame()이벤트를 호출하는 GameManager의 InGameUpdate 코루틴에 의해 매 프레임 호출된다. HOST일 경우 인풋 입력이 있는 순간마다 LocalQue에 메시지를 저장하고, 비 HOST일 경우 서버에게 SendDataToInGame()를 통해 KeyMessage를 송신한다.
+> 조이스틱 조작 (MoveInput()): GameManager의 InGame액션에 바인드 되어 지속적으로 호출며어 Joystick X축과 Y축 값을 통해 입력 발생시 move 메시지를 발신한다.
+> Fire 버튼 바인드 (AddFireAction()):
+> Fire버튼이 ButtonUp 될때와 ButtonDown 될때 각각 호출되는 콜백 함수를 인자로 전달받아 바인드한다.
+>
+> Reload 버튼 바인드 (AddReloadAciton()):
+> Reload 버튼 입력시 호출되는 콜백 함수를 인자로 전달받아 바인드한다.
+>
+> WeaponChange 버튼 바인드 (AddWeaponChangeAction()):
+> WeaponChange 버튼 입력시 호출되는 콜백 함수를 인자로 전달받아 바인드한다.
+
 
 #### (4) PoolingManager
  해당 매니저의 인스턴스 호출자로부터 pool id를 전달받아 해당 id에 해당하는 ObjectPool을 반환해주거나 새로 생성 혹은 삭제를 수행한다.
@@ -137,12 +146,21 @@
 > InGameManager와 동일하게 InGame Scene으로 전환 되면서 실행되고, 인게임이 종료됨과 동시에 종료된다.
 
 #### 동작 방식
-> 
+> 새로운 ObjectPool 생성을 위한ID 반환 (GetPoolID()):
+> 서로 다른 오브젝트의 같은 스크립트에서 poolID를 요청할 경우 ID의 중복을 막기 위한 대책으로써 idMap을 활용하여 인자로 요청된 id가 idMap에 존재 하는지 여부를 분기로 동작한다.
+> &nbsp 1.	요청된 id가 idMap에 존재하지 않을 경우idMap에 id : 1을 등록한 후 ( key : val, 여기서 1은 다음에 같은 id로 요청이 들어올 시에 할당할 번호를 의미함) id + “0”을 반환한다.
+> &nbsp 2.	요청된 id가 idMap에 존재할 경우에는 해당 id에 해당하는 value가 현재 할당해줘야 할 번호를 의미하므로 id + idMap[id]를 반환하고 idMap++을 수행한다.	
+> 새로운 ObjectPool 생성 (AddObjectPool()): 인자로 요청된 id가 poolMap에 존재하지 않을 경우에만 동작하며 poolMap에 대해 요청된 id를 key값으로, 새로운 ObjectPool을 그 value로 등록하면서 인자로 전달받은 Func, Action 구현부를 생성자로 전달한다.
+> ObjectPool 반환 (GetObjectPool()): 이미 poolMap존재하는 id에 대해서만 동작하며 id에 매치되는 ObjectPool를 반환한다.
+
 
 #### (5) SoundManager
   Reload, Fire, ItemGet, Dead, Hit등의 인게임 효과음에 대해 해당 매니저 인스턴스를 통해 원하는 위치에서 효과음을 재생할 수 있도록 PlayerSoundAtPoint 함수를 제공한다.
 #### 실행 주기
+> InGameManager와 동일하게 InGame Scene으로 전환 되면서 실행되고, 인게임이 종료됨과 동시에 종료된다.
 #### 동작 방식
+> 사운드 이펙트 재생 (PlaySoundAtPoint()): SoundEffect 열거형의 종류로 Reload, Fire1, Fire2, ItemGet, Dead, Hit 등이 존재하며 효과음 재생을 요구하는 스크립트에서 해당 함수의 인자로 원하는 타입을 전달하면 AudioSource.PlayerClipAtPoint(soundType, position)을 호출하여 특정된 위치에서 해당 효과음을 재생한다.
+
 </br>
 #### INTERFACE
 #### (1) IDamageable
@@ -211,4 +229,5 @@ playerRig.rotation=Quaternion.Lerp(playerRig.rotation, Quaternion.LookRotation(n
 ### 2) P2P Server
 > 뒤끝 서버는 서버의 연산을 막아 부하를 줄이기 위해 P2P Server를 지원한다. 뒤끝의 인게임 서버는 HOST(SUPER PEER) 방식의 P2P 서버를 사용하여 네트워크의 지연이 최소화하고 호스트에서 직접 로직을 처리하지 않으므로 서버의 부담이 적다. 그러나 로직이 분산되어 동기화에 어려움이 존재한다. Search Light에서는 접속시간이 가장 빠른 사용자가 HOST로 설정되고 모든 클라이언트의 메시지를 HOST가 받아 처리하여 동기화한다.
 
-
+### 3) Object Poolling
+> 인게임에서 생성 빈도가 높은 게임 오브젝트들의 경우는 생성과 삭제에 대한 자원 소모가 크게 작용하므로 한번 생성된 게임 오브젝트를 재활용 함으로써 새로운 Instantiate와 Destroy 빈도를 의도적으로 조절하여 최적화 하는 기법이다. SearchLight에서는 ObjectPooling이 필요한 스크립트에서PoolingManager를 통해 새로운 ObjectPool을 할당 받아 사용하도록 구현되어 있다.
