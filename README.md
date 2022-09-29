@@ -4,7 +4,6 @@
 ## 1. 구조 
 <img width="960" alt="제목 없음" src="https://user-images.githubusercontent.com/37167860/192972452-84fd3f39-6c38-4024-94c8-53f49d53a4b4.png">
 
-![KakaoTalk_20220926_235800900](https://user-images.githubusercontent.com/37167860/192311875-32f99b66-39ab-403c-a9d6-f2da643c1b23.png)
 
 ### 1) BackEnd (using BACKEND SDK)
 
@@ -152,7 +151,7 @@
 > 플레이어 외의 오브젝트에 데미지를 가하는 상황을 상정하여 피격 처리를 인터페이스화 시켰으며, TakeHit, TakeDamage, PlayerHitParticle 등의 메서드를 제공하고 해당 인터페이스를 상속받은 오브젝트는 Damageable Object로써 취급된다.
 
 #### OBJECT
-
+![KakaoTalk_20220926_235800900](https://user-images.githubusercontent.com/37167860/192311875-32f99b66-39ab-403c-a9d6-f2da643c1b23.png)
 #### (1) Player
 > hp(체력), shield(방어구), moveSpeed(이동속도), sightDistance(시야 거리), sightAngle(시야각)등의 필드를 관리하며 해당 정보가 요구되는 PlayerController, GunController, Detect 스크립트를 초기화 하는 역할을 수행하고 IDamageable로부터 실체화한 피격 처리 기능을 수행하며 실시간으로 MainCamera 위치를 갱신한다.
 >
