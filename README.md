@@ -91,8 +91,6 @@
 #### (3) DataParser
 서버에 보내거나 받은 메세지를 읽기 위해 위해 메세지를 인코딩/ 디코딩 작업을 한다. 
 > ( 서버 - 클라이언트 : string[] -> byte[] // 클라이언트 - 서버 byte[] -> string[] ) 
-<br><br><br>
-
 
 ### 3) In Game 
 #### MANAGER
@@ -124,15 +122,15 @@
 
 #### 동작 방식
 > GameManager의 Ingame()이벤트를 호출하는 GameManager의 InGameUpdate 코루틴에 의해 매 프레임 호출된다. HOST일 경우 인풋 입력이 있는 순간마다 LocalQue에 메시지를 저장하고, 비 HOST일 경우 서버에게 SendDataToInGame()를 통해 KeyMessage를 송신한다.
-> + 조이스틱 조작 (MoveInput()):
+> + 조이스틱 조작 (MoveInput()) : <br>
 >   GameManager의 InGame액션에 바인드 되어 지속적으로 호출며어 Joystick X축과 Y축 값을 통해 입력 발생시 move 메시지를 발신한다.
-> + Fire 버튼 바인드 (AddFireAction()):
+> + Fire 버튼 바인드 (AddFireAction()) : <br>
 >   Fire버튼이 ButtonUp 될때와 ButtonDown 될때 각각 호출되는 콜백 함수를 인자로 전달받아 바인드한다.
 >
-> + Reload 버튼 바인드 (AddReloadAciton()):
+> + Reload 버튼 바인드 (AddReloadAciton()) : <br>
 >   Reload 버튼 입력시 호출되는 콜백 함수를 인자로 전달받아 바인드한다.
 >
-> + WeaponChange 버튼 바인드 (AddWeaponChangeAction()):
+> + WeaponChange 버튼 바인드 (AddWeaponChangeAction()) : <br>
 >   WeaponChange 버튼 입력시 호출되는 콜백 함수를 인자로 전달받아 바인드한다.
 
 
@@ -148,13 +146,13 @@
 > InGameManager와 동일하게 InGame Scene으로 전환 되면서 실행되고, 인게임이 종료됨과 동시에 종료된다.
 
 #### 동작 방식
-> + 새로운 ObjectPool 생성을 위한ID 반환 (GetPoolID()):
+> + 새로운 ObjectPool 생성을 위한ID 반환 (GetPoolID()) : <br>
 > 서로 다른 오브젝트의 같은 스크립트에서 poolID를 요청할 경우 ID의 중복을 막기 위한 대책으로써 idMap을 활용하여 인자로 요청된 id가 idMap에 존재 하는지 여부를 분기로 동작한다.
 >   1.	요청된 id가 idMap에 존재하지 않을 경우idMap에 id : 1을 등록한 후 ( key : val, 여기서 1은 다음에 같은 id로 요청이 들어올 시에 할당할 번호를 의미함) id + “0”을 반환한다.
 >   2.	요청된 id가 idMap에 존재할 경우에는 해당 id에 해당하는 value가 현재 할당해줘야 할 번호를 의미하므로 id + idMap[id]를 반환하고 idMap++을 수행한다.	
-> + 새로운 ObjectPool 생성 (AddObjectPool()): 
+> + 새로운 ObjectPool 생성 (AddObjectPool()): <br>
 >   인자로 요청된 id가 poolMap에 존재하지 않을 경우에만 동작하며 poolMap에 대해 요청된 id를 key값으로, 새로운 ObjectPool을 그 value로 등록하면서 인자로 전달받은 Func, Action 구현부를 생성자로 전달한다.
-> + ObjectPool 반환 (GetObjectPool()): 
+> + ObjectPool 반환 (GetObjectPool()): <br>
 >   이미 poolMap존재하는 id에 대해서만 동작하며 id에 매치되는 ObjectPool를 반환한다.
 
 
