@@ -3,7 +3,7 @@
 
 ## 1. 구조 
 <img width="960" alt="제목 없음" src="https://user-images.githubusercontent.com/37167860/192972452-84fd3f39-6c38-4024-94c8-53f49d53a4b4.png">
-
+<br>
 ### 1) BackEnd (using BACKEND SDK)
 
 #### (1) ServerManager
@@ -17,13 +17,12 @@
 > Login 버튼 클릭시 사용자의 ID와 PW가 서버에 전달되어 로그인 요청이 이루어지고, 로그인이 활성화 되었을 경우 **토큰**을 반환하여 어플리케이션이 종료되더라도 일정 시간 동안 재로그인 없이 로그인 활성화가 가능하다. 회원 가입의 경우도 Sign Up 버튼 클릭 시 사용자의 ID와 PW 그리고 닉네임이 서버에 전달되어 회원 가입 요청이 이루어지며 자동으로 로그인 요청이 이루어진다. <br/>
 
 #### (2) ServerMatchManager
-
 #### Partial – ServerMatchManager
-> 매칭 서버와 연결과 매칭 요청을 위한 매니저, MatchMakingHandler에 의해 매칭 서버와 연결을 진행하고 서버에 접속해 있는 사용자들에게 매칭 요청을 진행한다. 만약, 오류가 발생할 경우 Exception Handler에 의해 Error Message 표출을 각 Scene의 UIManager에게 요청한다.<br/>
-
+ 매칭 서버와 연결과 매칭 요청을 위한 매니저, MatchMakingHandler에 의해 매칭 서버와 연결을 진행하고 서버에 접속해 있는 사용자들에게 매칭 요청을 진행한다. 만약, 오류가 발생할 경우 Exception Handler에 의해 Error Message 표출을 각 Scene의 UIManager에게 요청한다.<br/>
+<br>
 #### Partial - ServerInGameManager
-> 인게임 서버와의 연결과 게임에서의 메시지 송수신을 위한 매니저, 같은 인게임 서버에 접속된 사용자가 송신하는 메시지를 BackEnd.Match.OnMatchRelay로 수신받아 클라이언트의 InGameManager에서 처리하도록 한다. 
-
+ 인게임 서버와의 연결과 게임에서의 메시지 송수신을 위한 매니저, 같은 인게임 서버에 접속된 사용자가 송신하는 메시지를 BackEnd.Match.OnMatchRelay로 수신받아 클라이언트의 InGameManager에서 처리하도록 한다. 
+<br>
 #### 실행주기
 > ServerManager와 동일하게 어플리케이션 시작과 동시에 실행되며 어플리케이션 종료 전까지 종료되지 않으며, Exception Handler를 제외하고 MatchScene에서 동작된다.
 
@@ -33,8 +32,8 @@
 
 ### 2) In Application
 #### (1) GameManager
-> 현재 진행중인 게임의 상태를 저장하고, 핸들러를 통해 Scene을 전환하고 게임의 정보를 변경하는 매니저.
-
+ 현재 진행중인 게임의 상태를 저장하고, 핸들러를 통해 Scene을 전환하고 게임의 정보를 변경하는 매니저.
+<br>
 #### 실행주기
 > ServerManager와 동일하게 어플리케이션 시작과 동시에 실행되며, 어플리케이션이 종료되기 전까지 종료되지 않는다.
 
@@ -52,31 +51,31 @@
 >
 > + **AttackMessage**
 > 
-> 사용자가 공격 버튼을 누를 시 전송되는 메세지로, 공격하는 사용자의 SessionID, 방향 정보를 담고 있다. 해당 메시지를 송신 받으면 해당 사용자의 캐릭터에게 공격 애니메이션과 함수를 실행시킨다.
+>  사용자가 공격 버튼을 누를 시 전송되는 메세지로, 공격하는 사용자의 SessionID, 방향 정보를 담고 있다. 해당 메시지를 송신 받으면 해당 사용자의 캐릭터에게 공격 애니메이션과 함수를 실행시킨다.
 >
 > + **StopAttackMessage**
 > 
-> 사용자가 공격 버튼을 땔 때 전송되는 메시지로, 공격하는 사용자의 SessionID를 담고 있다. 해당 메시지를 송신 받으면 해당 사용자의 캐릭터에게 공격 종료 애니메이션과 함수를 실행시킨다.
+>  사용자가 공격 버튼을 땔 때 전송되는 메시지로, 공격하는 사용자의 SessionID를 담고 있다. 해당 메시지를 송신 받으면 해당 사용자의 캐릭터에게 공격 종료 애니메이션과 함수를 실행시킨다.
 > 
 > + **SwitchMessage**
 > 
-> 사용자가 총 변경 버튼을 누를 때 전송되는 메시지로, 사용자의 SessionID를 담고 있다. 해당 메시지를 송신 받으면 해당 사용자의 캐릭터에게 총 변경 애니메이션과 함수를 실행시킨다.
+>  사용자가 총 변경 버튼을 누를 때 전송되는 메시지로, 사용자의 SessionID를 담고 있다. 해당 메시지를 송신 받으면 해당 사용자의 캐릭터에게 총 변경 애니메이션과 함수를 실행시킨다.
 >
 > + **RealoadMessage**
 > 
-> 사용자가 재장전 버튼을 누를 때 전송되는 메시지로, 사용자의 SessionID를 담고 있다. 해당 메시지를 송신 받으면 해당 사용자의 캐릭터에게 재장전 애니메이션과 함수를 실행시킨다.
+>  사용자가 재장전 버튼을 누를 때 전송되는 메시지로, 사용자의 SessionID를 담고 있다. 해당 메시지를 송신 받으면 해당 사용자의 캐릭터에게 재장전 애니메이션과 함수를 실행시킨다.
 > 
 > + **AcquireMessage**
 > 
-> 사용자가 아이템을 습득할 때 전송되는 메시지로, 사용자의 SessionID와 동기화할 Position 값을 가지고 있다. 해당 메시지를 송신 받으면 해당 사용자의 캐릭터에게 습득 함수를 실행시킨다.
+>  사용자가 아이템을 습득할 때 전송되는 메시지로, 사용자의 SessionID와 동기화할 Position 값을 가지고 있다. 해당 메시지를 송신 받으면 해당 사용자의 캐릭터에게 습득 함수를 실행시킨다.
 > 
 > + **DamageMessage**
 > 
->  사용자가 공격을 받을 때 전송되는 메시지로, 공격받는 사용자의 SessionID, 위치 정보를 담고 있다. 해당 메시지를 송신 받으면 해당 사용자의 캐릭터에게 피해 함수를 실행시킨다.
+>   사용자가 공격을 받을 때 전송되는 메시지로, 공격받는 사용자의 SessionID, 위치 정보를 담고 있다. 해당 메시지를 송신 받으면 해당 사용자의 캐릭터에게 피해 함수를 실행시킨다.
 >  
 > + **NoMoveMessage**
 > 
->  사용자가 움직이지 않을 때, 사용자의 위치 정보가 변경 되지 않을 경우 전송 되는 메세지로, 사용자의 SessionID, 위치 정보를 담고 있다. 해당 메시지를 송신 받으면 해당 사용자의 캐릭터에게 이동 멈춤 애니메이션과 이동 멈춤 함수를 실행시킨다.
+>   사용자가 움직이지 않을 때, 사용자의 위치 정보가 변경 되지 않을 경우 전송 되는 메세지로, 사용자의 SessionID, 위치 정보를 담고 있다. 해당 메시지를 송신 받으면 해당 사용자의 캐릭터에게 이동 멈춤 애니메이션과 이동 멈춤 함수를 실행시킨다.
 >  
 > * **MoveMessage**
 > 
@@ -84,19 +83,20 @@
 >
 > * **StartCountMessage**
 > 
-> 게임이 시작되기 전, 서버에 접속된 모든 클라이언트의 동기화를 위한 메세지로, 숫자 카운트 정보를 담고 있다. 해당 메시지를 송신 받으면 해당 사용자의 화면에 카운트 정보를 표시한다.
+>  게임이 시작되기 전, 서버에 접속된 모든 클라이언트의 동기화를 위한 메세지로, 숫자 카운트 정보를 담고 있다. 해당 메시지를 송신 받으면 해당 사용자의 화면에 카운트 정보를 표시한다.
 > 
 > * **GameEndMessage**
 > 
-> 게임이 종료될 때, 서버에 접속된 모든 클라이언트의 동기화를 위한 메시지로, 게임 결과 창에 표시해야 하는 사용자의 정보들을 담고 있다. 해당 메시지를 송신 받으면 해당 사용자의 화면에 게임 결과 창을 출력한다.
+>  게임이 종료될 때, 서버에 접속된 모든 클라이언트의 동기화를 위한 메시지로, 게임 결과 창에 표시해야 하는 사용자의 정보들을 담고 있다. 해당 메시지를 송신 받으면 해당 사용자의 화면에 게임 결과 창을 출력한다.
+<br>
 #### (3) DataParser
 서버에 보내거나 받은 메세지를 읽기 위해 위해 메세지를 인코딩/ 디코딩 작업을 한다. 
 > ( 서버 - 클라이언트 : string[] -> byte[] // 클라이언트 - 서버 byte[] -> string[] ) 
-
+<br>
 ### 3) In Game 
 #### MANAGER
 #### (1) WorldManager
-> 사용자의 업데이트 정보를 API를 통해 서버로 송신하거나, 수신된 메세지를 통해 인게임 정보를 수시로 업데이트하는 매니저.
+ 사용자의 업데이트 정보를 API를 통해 서버로 송신하거나, 수신된 메세지를 통해 인게임 정보를 수시로 업데이트하는 매니저.
 
 #### 실행 주기
 > Loading Scene에서 InGame Scene으로 전환되면서 실행되고, 인게임이 종료됨과 동시에 종료 된다.
@@ -125,22 +125,22 @@
 > GameManager의 Ingame()이벤트를 호출하는 GameManager의 InGameUpdate 코루틴에 의해 매 프레임 호출된다. HOST일 경우 인풋 입력이 있는 순간마다 LocalQue에 메시지를 저장하고, 비 HOST일 경우 서버에게 SendDataToInGame()를 통해 KeyMessage를 송신한다.
 > 조이스틱 조작 (MoveInput()): GameManager의 InGame액션에 바인드 되어 지속적으로 호출며어 Joystick X축과 Y축 값을 통해 입력 발생시 move 메시지를 발신한다.
 > Fire 버튼 바인드 (AddFireAction()):
-> Fire버튼이 ButtonUp 될때와 ButtonDown 될때 각각 호출되는 콜백 함수를 인자로 전달받아 바인드한다.
+>  Fire버튼이 ButtonUp 될때와 ButtonDown 될때 각각 호출되는 콜백 함수를 인자로 전달받아 바인드한다.
 >
 > Reload 버튼 바인드 (AddReloadAciton()):
-> Reload 버튼 입력시 호출되는 콜백 함수를 인자로 전달받아 바인드한다.
+>  Reload 버튼 입력시 호출되는 콜백 함수를 인자로 전달받아 바인드한다.
 >
 > WeaponChange 버튼 바인드 (AddWeaponChangeAction()):
-> WeaponChange 버튼 입력시 호출되는 콜백 함수를 인자로 전달받아 바인드한다.
+>  WeaponChange 버튼 입력시 호출되는 콜백 함수를 인자로 전달받아 바인드한다.
 
 
 #### (4) PoolingManager
  해당 매니저의 인스턴스 호출자로부터 pool id를 전달받아 해당 id에 해당하는 ObjectPool을 반환해주거나 새로 생성 혹은 삭제를 수행한다.
-> + ObjectPool
->> Generic 클래스로 구현되어 다양한 타입에 대응할 수 있는 ObjectPool로, 사용자는PoolingManager를 통해  pool id를 부여받아 해당 id에 해당하는 ObjectPool을 사용할 수 있다.
->
-> + PoolingParticle
->> ObjectPooling이 필요한 파티클에 부착되는 컴포넌트로, 해당 파티클의 재생이 종료되었을 때 ObjectPool에 return되는 기능을 수행한다.
++ ObjectPool
+> Generic 클래스로 구현되어 다양한 타입에 대응할 수 있는 ObjectPool로, 사용자는PoolingManager를 통해  pool id를 부여받아 해당 id에 해당하는 ObjectPool을 사용할 수 있다.
+
++ PoolingParticle
+> ObjectPooling이 필요한 파티클에 부착되는 컴포넌트로, 해당 파티클의 재생이 종료되었을 때 ObjectPool에 return되는 기능을 수행한다.
 
 #### 실행 주기
 > InGameManager와 동일하게 InGame Scene으로 전환 되면서 실행되고, 인게임이 종료됨과 동시에 종료된다.
@@ -148,8 +148,8 @@
 #### 동작 방식
 > 새로운 ObjectPool 생성을 위한ID 반환 (GetPoolID()):
 > 서로 다른 오브젝트의 같은 스크립트에서 poolID를 요청할 경우 ID의 중복을 막기 위한 대책으로써 idMap을 활용하여 인자로 요청된 id가 idMap에 존재 하는지 여부를 분기로 동작한다.
-> &nbsp 1.	요청된 id가 idMap에 존재하지 않을 경우idMap에 id : 1을 등록한 후 ( key : val, 여기서 1은 다음에 같은 id로 요청이 들어올 시에 할당할 번호를 의미함) id + “0”을 반환한다.
-> &nbsp 2.	요청된 id가 idMap에 존재할 경우에는 해당 id에 해당하는 value가 현재 할당해줘야 할 번호를 의미하므로 id + idMap[id]를 반환하고 idMap++을 수행한다.	
+> <t> 1.	요청된 id가 idMap에 존재하지 않을 경우idMap에 id : 1을 등록한 후 ( key : val, 여기서 1은 다음에 같은 id로 요청이 들어올 시에 할당할 번호를 의미함) id + “0”을 반환한다.
+> </t> 2.	요청된 id가 idMap에 존재할 경우에는 해당 id에 해당하는 value가 현재 할당해줘야 할 번호를 의미하므로 id + idMap[id]를 반환하고 idMap++을 수행한다.	
 > 새로운 ObjectPool 생성 (AddObjectPool()): 인자로 요청된 id가 poolMap에 존재하지 않을 경우에만 동작하며 poolMap에 대해 요청된 id를 key값으로, 새로운 ObjectPool을 그 value로 등록하면서 인자로 전달받은 Func, Action 구현부를 생성자로 전달한다.
 > ObjectPool 반환 (GetObjectPool()): 이미 poolMap존재하는 id에 대해서만 동작하며 id에 매치되는 ObjectPool를 반환한다.
 
@@ -161,7 +161,7 @@
 #### 동작 방식
 > 사운드 이펙트 재생 (PlaySoundAtPoint()): SoundEffect 열거형의 종류로 Reload, Fire1, Fire2, ItemGet, Dead, Hit 등이 존재하며 효과음 재생을 요구하는 스크립트에서 해당 함수의 인자로 원하는 타입을 전달하면 AudioSource.PlayerClipAtPoint(soundType, position)을 호출하여 특정된 위치에서 해당 효과음을 재생한다.
 
-</br>
+<br>
 #### INTERFACE
 #### (1) IDamageable
 > 플레이어 외의 오브젝트에 데미지를 가하는 상황을 상정하여 피격 처리를 인터페이스화 시켰으며, TakeHit, TakeDamage, PlayerHitParticle 등의 메서드를 제공하고 해당 인터페이스를 상속받은 오브젝트는 Damageable Object로써 취급된다.
