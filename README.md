@@ -96,6 +96,7 @@
 ### 3) In Game 
 #### MANAGER
 <img width="960" alt="ingame" src="https://user-images.githubusercontent.com/37167860/193692164-f757f838-d555-4b14-b1ec-d48733bf03b3.png">
+
 #### (1) InGameManager
  사용자의 업데이트 정보를 API를 통해 서버로 송신하거나, 수신된 메세지를 통해 인게임 정보를 수시로 업데이트하는 매니저.
 
@@ -165,7 +166,6 @@
 #### 동작 방식
 > 사운드 이펙트 재생 (PlaySoundAtPoint()): SoundEffect 열거형의 종류로 Reload, Fire1, Fire2, ItemGet, Dead, Hit 등이 존재하며 효과음 재생을 요구하는 스크립트에서 해당 함수의 인자로 원하는 타입을 전달하면 AudioSource.PlayerClipAtPoint(soundType, position)을 호출하여 특정된 위치에서 해당 효과음을 재생한다.
 
-<br>
 #### INTERFACE
 #### (1) IDamageable
 > 플레이어 외의 오브젝트에 데미지를 가하는 상황을 상정하여 피격 처리를 인터페이스화 시켰으며, TakeHit, TakeDamage, PlayerHitParticle 등의 메서드를 제공하고 해당 인터페이스를 상속받은 오브젝트는 Damageable Object로써 취급된다.
