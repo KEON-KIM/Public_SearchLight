@@ -2,7 +2,7 @@
 
 
 ## 1. 구조 
-<img width="960" alt="제목 없음" src="https://user-images.githubusercontent.com/37167860/192972452-84fd3f39-6c38-4024-94c8-53f49d53a4b4.png">
+<img width="960" alt="architecture" src="https://user-images.githubusercontent.com/37167860/193691830-7e4e4362-7730-421c-ab5e-997251035560.png">
 
 ### 1) BackEnd (using BACKEND SDK)
 #### (1) ServerManager
