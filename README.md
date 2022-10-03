@@ -17,12 +17,13 @@
 
 #### (2) ServerMatchManager
 <img width="960" alt="server" src="https://user-images.githubusercontent.com/37167860/193692034-d6c830f0-dc0e-4256-b630-51b75f040be8.png">
+
 #### Partial – ServerMatchManager
- 매칭 서버와 연결과 매칭 요청을 위한 매니저, MatchMakingHandler에 의해 매칭 서버와 연결을 진행하고 서버에 접속해 있는 사용자들에게 매칭 요청을 진행한다. 만약, 오류가 발생할 경우 Exception Handler에 의해 Error Message 표출을 각 Scene의 UIManager에게 요청한다.<br/>
-<br>
+ 매칭 서버와 연결과 매칭 요청을 위한 매니저, MatchMakingHandler에 의해 매칭 서버와 연결을 진행하고 서버에 접속해 있는 사용자들에게 매칭 요청을 진행한다. 만약, 오류가 발생할 경우 Exception Handler에 의해 Error Message 표출을 각 Scene의 UIManager에게 요청한다.
+
 #### Partial - ServerInGameManager
  인게임 서버와의 연결과 게임에서의 메시지 송수신을 위한 매니저, 같은 인게임 서버에 접속된 사용자가 송신하는 메시지를 BackEnd.Match.OnMatchRelay로 수신받아 클라이언트의 InGameManager에서 처리하도록 한다. 
-<br>
+ 
 #### 실행주기
 > ServerManager와 동일하게 어플리케이션 시작과 동시에 실행되며 어플리케이션 종료 전까지 종료되지 않으며, Exception Handler를 제외하고 MatchScene에서 동작된다.
 
@@ -94,7 +95,8 @@
 
 ### 3) In Game 
 #### MANAGER
-#### (1) WorldManager
+<img width="960" alt="ingame" src="https://user-images.githubusercontent.com/37167860/193692164-f757f838-d555-4b14-b1ec-d48733bf03b3.png">
+#### (1) InGameManager
  사용자의 업데이트 정보를 API를 통해 서버로 송신하거나, 수신된 메세지를 통해 인게임 정보를 수시로 업데이트하는 매니저.
 
 #### 실행 주기
