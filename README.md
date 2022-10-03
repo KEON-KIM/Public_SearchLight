@@ -16,6 +16,7 @@
 > Login 버튼 클릭시 사용자의 ID와 PW가 서버에 전달되어 로그인 요청이 이루어지고, 로그인이 활성화 되었을 경우 **토큰**을 반환하여 어플리케이션이 종료되더라도 일정 시간 동안 재로그인 없이 로그인 활성화가 가능하다. 회원 가입의 경우도 Sign Up 버튼 클릭 시 사용자의 ID와 PW 그리고 닉네임이 서버에 전달되어 회원 가입 요청이 이루어지며 자동으로 로그인 요청이 이루어진다. <br/>
 
 #### (2) ServerMatchManager
+<img width="960" alt="server" src="https://user-images.githubusercontent.com/37167860/193692034-d6c830f0-dc0e-4256-b630-51b75f040be8.png">
 #### Partial – ServerMatchManager
  매칭 서버와 연결과 매칭 요청을 위한 매니저, MatchMakingHandler에 의해 매칭 서버와 연결을 진행하고 서버에 접속해 있는 사용자들에게 매칭 요청을 진행한다. 만약, 오류가 발생할 경우 Exception Handler에 의해 Error Message 표출을 각 Scene의 UIManager에게 요청한다.<br/>
 <br>
